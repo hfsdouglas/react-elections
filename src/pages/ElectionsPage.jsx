@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Main from "../components/Main";
 import Select from "../components/Select";
+import Loading from "../components/Loading";
 
 // Services
 import apiGetAllCities from "../services/api-service";
@@ -12,7 +13,7 @@ import apiGetAllCities from "../services/api-service";
 export default function ElectionsPage() {
     const [cities, setCities] = useState([]);
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     
     useEffect(() => {
         async function getAllCities() {
@@ -20,6 +21,7 @@ export default function ElectionsPage() {
                 const backendCities = await apiGetAllCities();
                 setCities(backendCities);
                 setError('');
+                setLoading(false);
             } catch (error) {
                 setError(error.message);
             }
@@ -30,7 +32,7 @@ export default function ElectionsPage() {
 
     let mainJsx = (
         <div className="flex justify-center my-4">
-            // Component de Loading
+            <Loading></Loading>
         </div>
     )
     
